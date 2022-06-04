@@ -1,0 +1,52 @@
+prefix: '&8[&a我是谁&8]'
+format:
+  rich-mes:
+    text: '&f [&a&l&n点击参与&r&f]'
+    hover: '&f点击参与竞猜'
+  item:
+    name: '&a右键来参与宝可梦竞猜'
+    lore:
+      - ''
+      - ''
+message:
+  no-perm: '@prefix@ &f缺少指定权限 &6@perm@'
+  update-index: '@prefix@ &f开始更新索引库'
+  reload: '@prefix@ &f已重载配置文件'
+  please-cancel: '@prefix@ &f请先输入 &ccancel &f来退出竞猜'
+  help:
+    - '@prefix@ &f&l|HELP'
+    - '&f/whoi update &e&o更新索引库'
+    - '&f/whoi start &e&o开始一场竞赛'
+    - '&f/whoi reload &e&o重载配置文件'
+  bro:
+    title: '&8[ &a我勾八谁啊 &8]'
+    subtitle: '&f回答正确可获得丰厚奖励'
+    text:
+      - ''
+      - '@prefix@'
+      - '&f 新一轮的宝可梦竞猜进行中'
+      - '@format@'
+      - '&f(或输入 &cwi &f参与)'
+      - '&3 回答正确可获得丰厚的奖励'
+      - ''
+  join:
+    title: '&a右键手中地图查看宝可梦'
+    subtitle: '&f<&c在聊天框输入答案参与&f>'
+  quit:
+    title: '&c已退出竞猜'
+    subtitle: '&f<&c可随时再次参与&f>'
+  update:
+    - ''
+    - '@prefix@'
+    - '&f &a@p@ &f第一个猜出答案，得到了奖励'
+    - '&f 答案是 &e&l@as@ &r&f你们猜对了吗'
+    - ''
+  end:
+    title: '&f&l我是谁'
+    subtitle: '&e&l@as@'
+  bro-ans:
+    - ''
+    - '@prefix@'
+    - '&f 时间结束,没有一个人猜出了正确答案'
+    - '&f 正确答案是 &2&l@poke@'
+    - ''

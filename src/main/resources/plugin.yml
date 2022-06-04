@@ -1,0 +1,7 @@
+name: WhoI
+version: '${project.version}'
+main: com.meteor.whoi.WhoI
+depend:
+  - MeteorLib
+commands:
+  whoi:
