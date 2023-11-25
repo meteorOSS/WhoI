@@ -6,7 +6,7 @@
 
     <groupId>com.meteor</groupId>
     <artifactId>WhoI</artifactId>
-    <version>3.1</version>
+    <version>2.3.5</version>
     <packaging>jar</packaging>
 
     <name>WhoI</name>
@@ -52,6 +52,9 @@
         </resources>
     </build>
 
+
+
+
     <repositories>
         <repository>
             <id>spigotmc-repo</id>
@@ -63,17 +66,14 @@
         </repository>
     </repositories>
 
+
     <dependencies>
         <dependency>
-            <groupId>com.qcloud</groupId>
-            <artifactId>cos_api</artifactId>
-            <version>5.6.75</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.26</version>
-            <scope>test</scope>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/lib/spigot-1.16.5.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
@@ -83,11 +83,40 @@
             <systemPath>${basedir}/src/lib/spigot-1.12.2-R0.1-SNAPSHOT-b1602.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>com.meteor</groupId>
-            <artifactId>meteor-api</artifactId>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.http</groupId>-->
+<!--            <artifactId>httpclient</artifactId>-->
+<!--            <version>4.3.3</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${basedir}/src/lib/httpclient-4.3.3.jar</systemPath>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.26</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.plib</groupId>
+            <artifactId>proco-api</artifactId>
             <version>1.12.2-R0.1-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/lib/[前置]MeteorLib-1.0-SNAPSHOT.jar</systemPath>
+            <systemPath>${basedir}/src/lib/[P][前置]ProtocolLib.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.plibpack</groupId>
+            <artifactId>ppack-api</artifactId>
+            <version>1.12.2-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/lib/PacketWrapper (1).jar</systemPath>
         </dependency>
     </dependencies>
+
+
+
 </project>
+

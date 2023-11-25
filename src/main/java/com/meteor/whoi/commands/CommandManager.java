@@ -26,7 +26,6 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         register(new Update(plugin));
         register(new Start(plugin));
         register(new Wi(plugin));
-        register(new Upload(plugin));
         register(new Download(plugin));
     }
 

@@ -35,7 +35,4 @@ public class ExceptionColl {
             ioException.printStackTrace();
         }
     }
-
-
-
 }

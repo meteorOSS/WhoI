@@ -1,8 +1,5 @@
 #使用问题联系qq2260483272
 #同时接中小型插件定制
-
-#如已购买插件，联系qq获取cdk
-cdk: ''
 pokemon-index-count: 718
 setting:
   ans-reg: '^(.*)@pkm@(.*)$'

@@ -8,7 +8,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class TheOriginalCheckUtil {
-    private final static String HTTP_DOMAIN = "http://mcadmin.ljxmc.top";
+    private final static String HTTP_DOMAIN = "https://admin.ljxmc.top/";
     private final static String VERIFY_SIGN = "/api/public/cdk/verifySign";
     private final static String PLUGIN_NAME = "WhoI";
     private final static String SECRET_KEY = "1525603231722508288";

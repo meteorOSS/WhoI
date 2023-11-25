@@ -10,6 +10,7 @@ format:
       - ''
 message:
   no-perm: '@prefix@ &f缺少指定权限 &6@perm@'
+  must-survival: '@prefix@ &f仅允许在生存模式下参与'
   update-index: '@prefix@ &f开始更新索引库'
   reload: '@prefix@ &f已重载配置文件'
   please-cancel: '@prefix@ &f请先输入 &ccancel &f来退出竞猜'

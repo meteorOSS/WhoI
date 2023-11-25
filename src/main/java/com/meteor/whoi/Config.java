@@ -1,6 +1,5 @@
 package com.meteor.whoi;
 
-import com.meteor.meteorlib.message.MessageManager;
 import com.meteor.whoi.data.Reward;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
