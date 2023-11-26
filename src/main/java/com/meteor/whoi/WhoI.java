@@ -28,9 +28,10 @@ public final class WhoI extends JavaPlugin{
             (commandManager = new CommandManager(this)).init();
             getCommand("whoi").setExecutor(commandManager);
             getLogger().info(this::getLogo);
-            getLogger().info("已通过验证,使用问题联系qq2260483272");           Config.init(this);
+            Config.init(this);
+            getLogger().info("插件问题反馈群: 653440235");
         }else {
-            getLogger().info("未通过验证，逻辑未正常执行，联系qq653440235购买cdk");
+//            getLogger().info("未通过验证，逻辑未正常执行，联系qq653440235购买cdk");
         }
 
     }
@@ -68,7 +69,7 @@ public final class WhoI extends JavaPlugin{
                 "                   :   '  |--\" |  | ,'      `----'  ;  :    ; \n" +
                 "                    \\   \\ ;    `--''                |  ,   /  \n" +
                 "                     '---\"                           ---`-'   \n" +
-                "version: 2.3.5  author: meteor 接中小型插件定制 qq2260483272\n" +
+                "version: 2.3.6  author: meteor 接中小型插件,MOD定制 qq2260483272\n" +
                 "                                                              ";
     }
 

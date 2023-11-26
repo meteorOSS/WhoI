@@ -5,6 +5,8 @@ import com.comphenix.packetwrapper.WrapperPlayServerWindowItems;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.BlockPosition;
+import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.meteor.whoi.api.event.GameStartEvent;
 import com.meteor.whoi.api.event.GameUpdateEvent;
 import com.meteor.whoi.data.PokemonData;
@@ -12,6 +14,7 @@ import com.meteor.whoi.data.PokemonData;
 import com.meteor.whoi.nms.Nms;
 import com.meteor.whoi.nms.v1_12_R1;
 import com.meteor.whoi.nms.v1_16_R3;
+import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.TextComponent;
 
@@ -20,6 +23,7 @@ import net.minecraft.server.v1_12_R1.Packet;
 import net.minecraft.server.v1_16_R3.MapIcon;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -121,7 +125,6 @@ public class WhoIHandler extends AbstractListener<WhoI>{
 
     private List<String> gamePlayers;
     private Map<String, ItemStack> tempItemMap;
-    private Map<String, ItemStack> lastCloseMap;
     private LocalDateTime nextTime;
     private BukkitTask bukkitTask;
     private PokemonData pokemonData;
@@ -135,18 +138,8 @@ public class WhoIHandler extends AbstractListener<WhoI>{
         this.gamePlayers = new Vector<>();
         this.tempItemMap = new ConcurrentHashMap<>();
         this.nextTime = LocalDateTime.now();
-        this.lastCloseMap = new ConcurrentHashMap<>();
-        File file = new File(plugin.getDataFolder()+"/last.yml");
-        if(file.exists()){
-            YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(file);
-            yamlConfiguration.getKeys(false).forEach(player->lastCloseMap.put(player,yamlConfiguration.getItemStack(player)));
-        }
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            if(lastCloseMap.containsKey(player.getName())){
-                player.setItemInHand(lastCloseMap.get(player.getName()));
-                lastCloseMap.remove(player.getName());
-            }
-        });
+
+
         try {
             String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
             Class<?> aClass = Class.forName("com.meteor.whoi.nms." + version);
@@ -317,6 +310,7 @@ public class WhoIHandler extends AbstractListener<WhoI>{
             tempItemMap.put(p.getName(),item);
         p.sendTitle(Config.config.getMessageManager().getString("message.join.title"),Config.config.getMessageManager().getString("message.join.subtitle"));
         showMap(p,plugin.getiStorage().getPokemon(getPokemonData().getPokemonId()),true);
+
         p.getInventory().setHeldItemSlot(4);
         gamePlayers.add(pn);
     }
@@ -331,7 +325,7 @@ public class WhoIHandler extends AbstractListener<WhoI>{
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = MONITOR)
     void onInt0(PlayerInteractEvent interactEvent){
         Player player = interactEvent.getPlayer();
         if(gamePlayers.contains(player.getName())){
@@ -385,7 +379,7 @@ public class WhoIHandler extends AbstractListener<WhoI>{
 
     @EventHandler
     void onHel(PlayerItemHeldEvent heldEvent){
-        if(gamePlayers.contains(heldEvent.getPlayer().getName())||lastCloseMap.containsKey(heldEvent.getPlayer().getName())){
+        if(gamePlayers.contains(heldEvent.getPlayer().getName())){
             heldEvent.setCancelled(true);
             heldEvent.getPlayer().sendMessage(Config.config.getMessageManager().getString("message.please-cancel"));
         }
@@ -411,12 +405,11 @@ public class WhoIHandler extends AbstractListener<WhoI>{
         }
     }
 
-
     public boolean showMap(Player player,String pkm,boolean hide){
         ItemStack[] items = new ItemStack[46];
         for (int i = 0; i < 46; i++)
             items[i] = new ItemStack(Material.AIR);
-        ItemStack itemStack = new ItemStack(Material.MAP);
+        ItemStack itemStack = new ItemStack(Material.FILLED_MAP);
         items[40] = itemStack;
         sendFakeItem(player,Arrays.asList(items));
         sendFakeMap(player,pkm,hide);
@@ -434,7 +427,13 @@ public class WhoIHandler extends AbstractListener<WhoI>{
         }
     }
 
+
+
+
     public void sendFakeMap(Player player,String pkm,boolean hide){
+
+
+
         PacketContainer packet = new PacketContainer(PacketType.Play.Server.MAP);
         packet.getBytes().write(0, (byte) 4);
         packet.getIntegers().write(0, 0);
@@ -470,24 +469,6 @@ public class WhoIHandler extends AbstractListener<WhoI>{
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    public void sendMap(){
-        MapView mapView = Bukkit.createMap(Bukkit.getWorlds().get(0));
-        MapRenderer renderer = new MapRenderer() {
-            @Override
-            public void render(MapView map, MapCanvas canvas, Player player) {
-                // canvas.drawImage(0, 0, yourImage);
-            }
-        };
-
-        for (MapRenderer mapRenderer : mapView.getRenderers()) {
-            mapView.removeRenderer(mapRenderer);
-        }
-
-        mapView.addRenderer(renderer);
-        Player player = Bukkit.getPlayer("xxj");
-        player.sendMap(mapView);
     }
 
 
@@ -563,7 +544,6 @@ public class WhoIHandler extends AbstractListener<WhoI>{
             if(gamePlayers.contains(k))
                 yamlConfiguration.set(k,v);
         });
-        lastCloseMap.forEach((k,v)->yamlConfiguration.set(k,v));
         try {
             yamlConfiguration.save(new File(plugin.getDataFolder()+"/last.yml"));
         } catch (IOException ioException) {
